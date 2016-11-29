@@ -13,16 +13,16 @@ public class DataSet {
     public int[] data;
     public XYSeriesCollection graphDataset;
     private JFreeChart chart;
-
+    
     public void SetChart(JFreeChart chart_) {
         chart = chart_;
     }
     
-    static public void InitalizeXYDataSet(DataSet dataset) {
+    public void InitalizeXYDataSet() {
 
-        int[] values = dataset.data;
+        int[] values = data;
 
-        final XYSeries series = new XYSeries("Random Data");
+        final XYSeries series = new XYSeries("Data");
         for (int i = 0; i < values.length; ++i) {
             series.add(i, values[i]);
         }
@@ -33,7 +33,7 @@ public class DataSet {
         xyDataset.setAutoWidth(true);
         xyDataset.setIntervalWidth(0.25);
 
-        dataset.graphDataset = xyDataset;
+        graphDataset = xyDataset;
     }
 
     public void RefreshXYDataSet() {

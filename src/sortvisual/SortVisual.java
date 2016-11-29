@@ -16,10 +16,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 
-/**
- *
- * @author mohammeddas
- */
+
 public class SortVisual {
 
     /**
@@ -36,7 +33,17 @@ public class SortVisual {
             }
             
             DataSet dataset = new DataSetFactory().CreateRandom(50, 30, 100);
-            DataSet.InitalizeXYDataSet(dataset);
+            if (args[0].toLowerCase().equals("mergesort")) {
+                MergeSortDataSet mergeSortDataSet = new MergeSortDataSet();
+                mergeSortDataSet.data = dataset.data;
+                mergeSortDataSet.mergeSpace = dataset.data.clone();
+                
+                dataset = mergeSortDataSet; 
+                
+            }
+            dataset.InitalizeXYDataSet();
+              
+   
             
             final JFrame frame = new JFrame("Charts");
             final JFreeChart chart = ChartFactory.createXYBarChart("Chart",
@@ -74,15 +81,22 @@ public class SortVisual {
                 
                 sorterInput = insertionSort;
             } else if (algo.equals("mergesort")) {
-                sorterInput = new MergeSort(refresher);
+                MergeSort mergeSort = new MergeSort(refresher);
+                
+                MergeSort.Renderer renderer;
+                renderer = mergeSort.new Renderer(Color.GRAY, Color.GREEN, Color.ORANGE, Color.BLUE, Color.RED);
+                chart.getXYPlot().setRenderer(renderer);
+                mergeSort.SetRenderer(renderer);
+                
+                sorterInput = mergeSort;
             } else if (algo.equals("quicksort")) {
                 QuickSort quickSort = new QuickSort(refresher);
                 
                 QuickSort.Renderer renderer;
                 renderer = quickSort.new Renderer(Color.GRAY, Color.GREEN, Color.ORANGE, Color.BLUE, Color.RED);
                 chart.getXYPlot().setRenderer(renderer);
-                quickSort.SetRenderer(renderer)
-                        ;
+                quickSort.SetRenderer(renderer);
+                
                 sorterInput = quickSort;
             } else {
                 System.out.println("Algo name unknow.");
