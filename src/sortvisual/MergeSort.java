@@ -2,6 +2,12 @@ package sortvisual;
 
 public class MergeSort implements SortInterface {
 
+    private final IRefresher refresher;
+
+    MergeSort(IRefresher refresher_) {
+        refresher = refresher_;
+    }
+
     private int[] mergeSpace;
 
     @Override
@@ -30,7 +36,7 @@ public class MergeSort implements SortInterface {
 
     private void mergeSortedSubArrays(DataSet dataset, int left, int middle, int right) {
         int[] data = dataset.data;
-        
+
         int rangeOneIter = left;
         int rangeOneEnd = middle;
         int rangeTwoIter = middle + 1;
